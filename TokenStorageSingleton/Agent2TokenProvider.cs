@@ -56,7 +56,7 @@ namespace TokenStorageSingleton
             switch (response.StatusCode)
             {
                 case HttpStatusCode.Unauthorized:
-                    await this.CleanApiTokensAsync();
+                    this.CleanTokenWithoutLock();
                     break;
                 case HttpStatusCode.OK:
                     return JsonConvert.DeserializeObject<Agent2SecurityToken>(await response.Content.ReadAsStringAsync());

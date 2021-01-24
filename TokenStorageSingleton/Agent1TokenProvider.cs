@@ -39,7 +39,7 @@ namespace TokenStorageSingleton
             switch (response.StatusCode)
             {
                 case HttpStatusCode.Unauthorized:
-                    await this.CleanApiTokensAsync();
+                    this.CleanTokenWithoutLock();
                     break;
                 case HttpStatusCode.OK:
                     var json = await response.Content.ReadAsStringAsync();

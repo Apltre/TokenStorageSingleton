@@ -13,12 +13,17 @@ namespace TokenStorageSingleton
     
         protected abstract Task<IAccessToken> RequestAccessTokenAsync();
 
+        protected void CleanTokenWithoutLock()
+        {
+            this.accessToken = null;
+        }
+
         public override async Task CleanApiTokensAsync()
         {
             await this.StorageLock.WaitAsync();
             try
             {
-                this.accessToken = null;
+                this.CleanTokenWithoutLock();
             }
             finally
             {
